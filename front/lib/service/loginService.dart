@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:front/service/apiException.dart';
 import 'package:http/http.dart' as http;
 
-Future sendLoginRequest(String username, String password) async {
+Future<String?> sendLoginRequest(String username, String password) async {
   final url = Uri.parse('http://localhost:8080/api/auth/login');
   try{
       Map<String, String> payload = {
@@ -17,14 +19,13 @@ Future sendLoginRequest(String username, String password) async {
         );
 
   if (response.statusCode == 200) {
-    // Login successful
     print('Logado');
+    return response.statusCode.toString();
   } else {
-    print(response.statusCode);
     print('Credenciais inválidas');
+    return response.statusCode.toString();
   }
   } catch (e) {
-    print('Erro: $e');
+    throw ApiException('Não foi possível conectar à API: $e');
   }
- 
 }

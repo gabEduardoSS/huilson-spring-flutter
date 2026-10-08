@@ -1,24 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:front/service/loginService.dart';
+import 'package:front/widgets/topMessage.dart';
+import 'package:front/service/apiCheck.dart';
+import 'package:front/service/apiException.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _verificarApi();
+    });
+  }
+
+  Future<void> _verificarApi() async {
+    try {
+      await checkApiStatus();
+    } on ApiException catch (e) {
+      if (!mounted) return;
+      TopMessage.show(context, e.message);
+    }
+  }
+
+  Future<void> _login() async{
+      if (_usernameController.text.isEmpty || _passwordController.text.isEmpty){
+          TopMessage.show(context, "Preencha usuário e senha");
+          return;
+      }
+      try{
+        String? res = await sendLoginRequest(_usernameController.text, _passwordController.text);
+        if(!mounted) return;
+        if(res == "200"){
+          TopMessage.show(context, "Logado com sucesso", color: Colors.green);
+        } else if (res == "401"){
+          TopMessage.show(context, "Credenciais inválidas");
+        } else {
+          TopMessage.show(context, "Erro ao logar");
+        }
+
+      } on ApiException catch (e){
+        if(!mounted) return;
+        TopMessage.show(context, e.message);
+      } finally{
+          setState(() {    
+            _passwordController.clear();
+          });
+      }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login Page'),
-        centerTitle: true,
-      ),
       body: Center(
         child: Container(
           padding: const EdgeInsets.only(left: 50, right: 50, top: 40, bottom: 40),
@@ -74,12 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     onPressed: () {
-                      if (_usernameController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
-                        sendLoginRequest(_usernameController.text, _passwordController.text);
-                        setState(() {
-                          _passwordController.clear();
-                        });
-                      }
+                        _login();
                     },
                     child: const Text('Login'),
                   ),
