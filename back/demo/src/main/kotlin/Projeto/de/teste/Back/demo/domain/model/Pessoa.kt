@@ -26,7 +26,7 @@ import java.time.LocalDateTime
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING, length = 20)
 abstract class Pessoa(
     @Column(nullable = false) var nome: String,
-    @Column(nullable = false, length = 14) var cpf: String,
+    @Column(nullable = false, length = 14, unique = true) var cpf: String,
     @Column(nullable = false) var email: String,
     @Column(nullable = false, length = 20) var telefone: String,
     @Column(nullable = false) var cidade: String,

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="84039eb6-8332-4550-8ae0-1d886799f5e5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/example/huilsonspring/enumeradores/Cargo.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/example/huilsonspring/enumeradores/Cor.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/example/huilsonspring/enumeradores/Formato.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/example/huilsonspring/enumeradores/Material.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/example/huilsonspring/enumeradores/OpcoesMenu.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/example/huilsonspring/enumeradores/StatusFinanceiro.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/example/huilsonspring/enumeradores/TipoMovimentacao.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/example/huilsonspring/enumeradores/TipoPessoa.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/example/huilsonspring/enumeradores/TipoTransacao.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/example/huilsonspring/enumeradores/Turno.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/example/huilsonspring/util/ValidarCPF.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/config/CaixaInicializador.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/config/CaixaInicializador.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/domain/model/Pessoa.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/domain/model/Pessoa.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/service/ClienteService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/service/ClienteService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/service/VendaService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/service/VendaService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/web/ClienteController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/web/ClienteController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/web/VendaController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/web/VendaController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/web/dto/PedidoDto.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../demo/src/main/kotlin/Projeto/de/teste/Back/demo/web/dto/PedidoDto.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../front/lib/service/loginService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../../front/lib/service/loginService.dart" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/main.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" />
+    <panes>
+      <pane id="ProjectPane">
+        <option name="show-excluded-files" value="false" />
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "dev"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+</project>

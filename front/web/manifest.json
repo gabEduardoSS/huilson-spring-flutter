@@ -1,6 +1,6 @@
 {
-    "name": "front",
-    "short_name": "front",
+    "name": "front_completo",
+    "short_name": "front_completo",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -13,12 +13,13 @@ import java.math.BigDecimal
 @Component
 class CaixaInicializador(
     private val caixaRepository: CaixaRepository,
-    @Value("\${app.caixa.saldo-inicial:0}") saldoInicial: BigDecimal,
+    @Value("100000") saldoInicial: BigDecimal,
 ) : ApplicationRunner {
     private val log = LoggerFactory.getLogger(javaClass)
     private val saldo: BigDecimal = saldoInicial
 
     override fun run(args: ApplicationArguments) {
+        println("AAAAAAAAAAAAAAAAAAAAAAAAA:${saldo}")
         if (!caixaRepository.existsById(Caixa.ID_PRINCIPAL)) {
             caixaRepository.save(Caixa(saldo = saldo))
             log.info("Caixa criado com saldo inicial de {}", saldo)
