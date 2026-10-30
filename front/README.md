@@ -1,17 +1,43 @@
-# front
+# Gestão Comercial – front-end Flutter
 
-A new Flutter project.
+Front-end (Web, Android, Windows...) do back-end Spring Boot `demo` (caixas d'água).
+Estilo: Material 3 padrão, `NavigationRail` à esquerda, título **"Gestão Comercial • Seção"**,
+FAB estendido ("Novo cliente"), estado vazio com ícone de caixa de entrada e faixa vermelha de erro.
 
-## Getting Started
+## Como rodar
+```bash
+# 1) dentro desta pasta, gere as pastas de plataforma (web/, android/, ...) sem sobrescrever o lib/
+flutter create . --platforms=web,android,windows --project-name gestao_comercial
+flutter pub get
 
-This project is a starting point for a Flutter application.
+# 2) suba o back-end (porta 8080) e rode o app
+flutter run -d chrome
+```
+URL da API (padrão `http://localhost:8080/api`; `10.0.2.2` no emulador Android):
+```bash
+flutter run -d chrome --dart-define=API_URL=http://192.168.0.10:8080/api
+```
+> "ClientException: Failed to fetch" = o app não alcançou o servidor (back-end parado ou URL errada).
+> O CORS do back-end já libera `/api/**`.
 
-A few resources to get you started if this is your first Flutter project:
+## Telas x endpoints
+| Tela | Endpoints |
+|---|---|
+| Login / primeiro acesso | `POST /auth/login`, `POST /auth/registro` |
+| Clientes | `GET/POST /clientes`, `PATCH /clientes/{id}` |
+| Funcionários | `GET /funcionarios?status&cargo`, `POST`, `PATCH`, `POST /{id}/desativar`, `/reativar` |
+| Produtos | `GET /produtos?status`, `POST`, `PATCH`, `POST /{id}/desativar`, `/reativar`, `DELETE /{id}` |
+| Vendas | `GET /vendas`, `POST /vendas/criar` |
+| Compras | `POST /compras` (+ histórico via `GET /consultas/transacoes?tipo=SAIDA`) |
+| Caixa | `GET /caixa/saldo`, `GET /consultas/transacoes`, `GET /consultas/movimentacoes` |
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Estrutura
+```
+lib/
+  core/      config, ApiClient (ProblemDetail -> ApiException), formatadores, validadores (= Padroes.kt)
+  models/    enums (nomes idênticos aos do Kotlin) e modelos
+  services/  um serviço por controller + `servicos` (instância única)
+  widgets/   ListaPage genérica, campos, formulário padrão, feedback
+  screens/   login, shell de navegação e uma página (+ formulário) por módulo
+test/        testes de modelos, validadores e ApiClient (respostas no formato do back-end)
+```

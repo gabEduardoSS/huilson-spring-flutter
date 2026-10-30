@@ -1,6 +1,6 @@
 {
-    "name": "front",
-    "short_name": "front",
+    "name": "gestao_comercial",
+    "short_name": "gestao_comercial",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
