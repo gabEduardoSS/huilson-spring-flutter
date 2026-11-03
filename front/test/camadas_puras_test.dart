@@ -4,18 +4,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
-import 'package:gestao_comercial/core/api_client.dart';
-import 'package:gestao_comercial/core/formatters.dart';
-import 'package:gestao_comercial/core/json_utils.dart';
-import 'package:gestao_comercial/core/validators.dart';
-import 'package:gestao_comercial/models/cliente.dart';
-import 'package:gestao_comercial/models/consulta.dart';
-import 'package:gestao_comercial/models/enums.dart';
-import 'package:gestao_comercial/models/funcionario.dart';
-import 'package:gestao_comercial/models/pedido.dart';
-import 'package:gestao_comercial/models/produto.dart';
-import 'package:gestao_comercial/services/produto_service.dart';
-import 'package:gestao_comercial/services/pedido_service.dart';
+import 'package:front/core/api_client.dart';
+import 'package:front/core/formatters.dart';
+import 'package:front/core/json_utils.dart';
+import 'package:front/core/validators.dart';
+import 'package:front/models/cliente.dart';
+import 'package:front/models/consulta.dart';
+import 'package:front/models/enums.dart';
+import 'package:front/models/funcionario.dart';
+import 'package:front/models/pedido.dart';
+import 'package:front/models/produto.dart';
+import 'package:front/services/produto_service.dart';
+import 'package:front/services/pedido_service.dart';
 
 /// Resposta em UTF-8, como o Spring envia (o `Response(String)` do http usaria latin1).
 http.Response resposta(int status, Object corpo) => http.Response.bytes(
