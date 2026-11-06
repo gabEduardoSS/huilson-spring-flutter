@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'models/usuario.dart';
 import 'screens/home_shell.dart';
 import 'screens/login_page.dart';
 
-void main() => runApp(const GestaoComercialApp());
+void main() async{await GetStorage.init(); runApp(const GestaoComercialApp());}
 
 class GestaoComercialApp extends StatefulWidget {
   const GestaoComercialApp({super.key});

@@ -41,8 +41,11 @@ class AuthService(
         val credencial = usuarioRepository.findByUsuario(usuario)
         // Mesma resposta para "usuário inexistente" e "senha incorreta", para não revelar quais usuários existem.
         if (credencial == null || !passwordEncoder.matches(senha, credencial.senhaHash)) {
+            print("$usuario $senha")
             throw CredenciaisInvalidasException()
         }
+
+
         return UsuarioResponse(credencial.id!!, credencial.usuario)
     }
 

@@ -9,20 +9,17 @@ import org.springframework.boot.ApplicationRunner
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 
-/** Garante que o registro único do caixa (id = 1) exista; o sistema antigo assumia que ele já estava no banco. */
 @Component
 class CaixaInicializador(
     private val caixaRepository: CaixaRepository,
-    @Value("100000") saldoInicial: BigDecimal,
+    @Value("\${app.caixa.saldo-inicial:0}") saldoInicial: BigDecimal,
 ) : ApplicationRunner {
     private val log = LoggerFactory.getLogger(javaClass)
     private val saldo: BigDecimal = saldoInicial
 
     override fun run(args: ApplicationArguments) {
         println("AAAAAAAAAAAAAAAAAAAAAAAAA:${saldo}")
-        if (!caixaRepository.existsById(Caixa.ID_PRINCIPAL)) {
-            caixaRepository.save(Caixa(saldo = saldo))
-            log.info("Caixa criado com saldo inicial de {}", saldo)
-        }
+        caixaRepository.save(Caixa(id = Caixa.ID_PRINCIPAL, saldo = saldo))
+        log.info("Caixa ${if(!caixaRepository.existsById(Caixa.ID_PRINCIPAL)) "criado" else "atualizado"} com saldo inicial de {}", saldo)
     }
 }

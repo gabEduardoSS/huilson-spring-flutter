@@ -16,12 +16,10 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/auth")
 class AuthController(private val authService: AuthService) {
 
-    /** Antigo `criaLogin()` ("primeiro acesso"). */
     @PostMapping("/registro")
     @ResponseStatus(HttpStatus.CREATED)
     fun registrar(@Valid @RequestBody req: RegistroRequest): UsuarioResponse = authService.registrar(req)
 
-    /** Antigo `validaLogin()`. 200 se as credenciais conferem, 401 se não. */
     @PostMapping("/login")
     fun login(@Valid @RequestBody req: LoginRequest): UsuarioResponse = authService.autenticar(req)
 }
