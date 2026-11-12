@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'formatters.dart';
 
 /// Mesmas regras (Padroes.kt) que o back-end aplica com Bean Validation,
@@ -8,6 +10,23 @@ String? obrigatorio(String? v, [String msg = 'Campo obrigatório']) =>
 
 String? validaCpf(String? v) =>
     soDigitos(v ?? '').length == 11 ? null : 'CPF deve ter 11 dígitos';
+
+String? formatarCpf(String? v){
+  String retorno = '';
+  List<String>? cpf = v?.split('');
+  if(cpf != null){
+    for(var i = 0; i < cpf.length; i += 1){
+      String add = '';
+      if([2, 5].contains(i)){
+        add = ".";
+      } else if([8].contains(i)){
+        add = "-";
+      }
+      retorno += "${cpf[i]}$add";
+    }
+  }
+  return retorno;
+}
 
 final _email = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z.]+$');
 String? validaEmail(String? v) =>

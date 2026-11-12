@@ -7,6 +7,8 @@ import 'compras_page.dart';
 import 'funcionarios_page.dart';
 import 'produtos_page.dart';
 import 'vendas_page.dart';
+import '../services/servicos.dart';
+import '../widgets/feedback.dart';
 
 class _Destino {
   const _Destino(this.rotulo, this.icone, this.iconeSelecionado, this.pagina);
@@ -40,6 +42,19 @@ class HomeShell extends StatefulWidget {
 class _HomeShellState extends State<HomeShell> {
   int _indice = 0;
 
+  Future<void> _sair() async {
+    final ok = await confirmar(
+      context,
+      titulo: 'Sair?',
+      mensagem: 'Deseja encerrar a sessão?',
+      rotuloConfirmar: 'Sair',
+    );
+    if (!ok || !mounted) return;
+    await servicos.auth.logout();
+    if (!mounted) return;
+    widget.aoSair();
+  }
+
   @override
   Widget build(BuildContext context) {
     final largo = MediaQuery.sizeOf(context).width >= 720;
@@ -59,7 +74,7 @@ class _HomeShellState extends State<HomeShell> {
           IconButton(
             tooltip: 'Sair',
             icon: const Icon(Icons.logout),
-            onPressed: widget.aoSair,
+            onPressed: _sair,
           ),
           const SizedBox(width: 8),
         ],

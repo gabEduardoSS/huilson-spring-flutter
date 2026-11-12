@@ -49,7 +49,7 @@ class AuthService(
         return UsuarioResponse(credencial.id!!, credencial.usuario)
     }
 
-    private fun normalizarUsuario(valor: String): String = valor.trim().uppercase()
+    fun normalizarUsuario(valor: String): String = valor.trim().uppercase()
 
     /** Mesmas regras do `validarDadosCadastro` do projeto aa; devolve a mensagem de erro ou null se estiver tudo certo. */
     internal fun validarDadosCadastro(usuario: String, senha: String): String? = when {

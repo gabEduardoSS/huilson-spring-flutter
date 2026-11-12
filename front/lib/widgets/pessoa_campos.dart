@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../core/formatters.dart';
 import '../core/json_utils.dart';
 import '../core/validators.dart';
+import 'package:brasil_fields/brasil_fields.dart';
 import 'campos.dart';
 
 const ufs = [
@@ -91,7 +92,7 @@ class _PessoaCamposState extends State<PessoaCampos> {
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(11),
+                  CpfInputFormatter(),
                 ],
                 validator: validaCpf,
               ),

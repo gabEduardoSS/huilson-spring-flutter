@@ -6,11 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="a98dfb22-436d-4b5e-bf34-e9c72ea84f21" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/config/CaixaInicializador.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/config/CaixaInicializador.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/domain/model/Usuario.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/domain/model/Usuario.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/config/UsuarioInicializador.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/config/UsuarioInicializador.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/service/AuthService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/service/AuthService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/web/AuthController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/web/AuthController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/lib/core/validators.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../front/lib/core/validators.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/lib/screens/cliente_form_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../front/lib/screens/cliente_form_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/lib/screens/home_shell.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../front/lib/screens/home_shell.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/lib/services/auth_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../front/lib/services/auth_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/lib/widgets/pessoa_campos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../front/lib/widgets/pessoa_campos.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../front/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../front/pubspec.yaml" afterDir="false" />
     </list>
@@ -45,28 +47,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "Spring Boot.DemoApplication.executor": "Run",
-    "git-widget-placeholder": "dev",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/eduardo90508036.EDU/Documents/codigos/flutter/huilson-spring-flutter/back",
-    "project.structure.last.edited": "Global Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;Spring Boot.DemoApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/eduardo90508036.EDU/Documents/codigos/flutter/huilson-spring-flutter/back&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="back" />
@@ -107,6 +110,9 @@
       <workItem from="1793320672760" duration="41000" />
       <workItem from="1793320731214" duration="223000" />
       <workItem from="1793320977517" duration="1249000" />
+      <workItem from="1794355792955" duration="1057000" />
+      <workItem from="1794434853562" duration="4385000" />
+      <workItem from="1794443659257" duration="2720000" />
     </task>
     <servers />
   </component>

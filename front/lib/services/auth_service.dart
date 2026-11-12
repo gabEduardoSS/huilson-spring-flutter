@@ -20,4 +20,9 @@ class AuthService {
         await _api.post('/auth/registro', body: {'usuario': usuario, 'senha': senha})
             as Map<String, dynamic>,
       );
+
+  Future<void> logout() async{
+    SessionStorage.clearSession();
+    print("logout");
+  }
 }

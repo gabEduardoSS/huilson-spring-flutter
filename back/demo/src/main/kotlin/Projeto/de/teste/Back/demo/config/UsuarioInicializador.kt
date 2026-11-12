@@ -15,15 +15,15 @@ import org.springframework.stereotype.Component
 @Component
 class UsuarioInicializador(
     private val usuarioRepository: UsuarioRepository,
-    private val passwordEncoder: PasswordEncoder,
     private val authService: AuthService,
     @Value("\${app.usuario.user}") admin : String
 ): ApplicationRunner {
     private val log = LoggerFactory.getLogger(javaClass)
     private val adminString: String = admin
     override fun run(args: ApplicationArguments) {
-        if(!usuarioRepository.existsByUsuario(adminString)){
-            authService.registrar(RegistroRequest(adminString, adminString))
+        val usuario: String = authService.normalizarUsuario(adminString);
+        if(!usuarioRepository.existsByUsuario(usuario)){
+            authService.registrar(RegistroRequest(usuario, adminString))
             log.info("criado admin")
         } else{
             log.info("já existe admin")
