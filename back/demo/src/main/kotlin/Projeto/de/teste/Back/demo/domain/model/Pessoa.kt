@@ -15,6 +15,7 @@ import jakarta.persistence.Transient
 import java.time.LocalDate
 import java.time.LocalDateTime
 
+
 /**
  * Tabela `pessoa` (dados comuns) + `cliente` / `funcionario` (dados específicos),
  * ligadas pela mesma chave `id` — o mesmo desenho que o projeto JDBC já usava.
@@ -31,7 +32,7 @@ abstract class Pessoa(
     @Column(nullable = false, length = 20) var telefone: String,
     @Column(nullable = false) var cidade: String,
     @Column(nullable = false) var endereco: String,
-    @Column(name = "dt_nasc") var dtNasc: LocalDate?
+    @Column(name = "dt_nasc") var dtNasc: LocalDate?,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,4 +43,5 @@ abstract class Pessoa(
 
     @get:Transient
     abstract val tipo: TipoPessoa
+
 }
