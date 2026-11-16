@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 import '../core/formatters.dart';
 import '../core/json_utils.dart';
 import '../core/validators.dart';
+import '../services/servicos.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'campos.dart';
+import 'feedback.dart';
 
 const ufs = [
   'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA',
@@ -35,6 +37,9 @@ class PessoaCamposController {
   }
 
   final TextEditingController nome, cpf, email, telefone, cidade, rua, numero;
+  final TextEditingController cep = TextEditingController();
+  final FocusNode numeroFoco = FocusNode();
+
   String? uf;
   DateTime? dtNasc;
 
@@ -49,17 +54,19 @@ class PessoaCamposController {
       };
 
   void dispose() {
-    for (final c in [nome, cpf, email, telefone, cidade, rua, numero]) {
+    for (final c in [nome, cpf, email, telefone, cidade, rua, numero, cep]) {
       c.dispose();
     }
+    numeroFoco.dispose();
   }
 }
 
 class PessoaCampos extends StatefulWidget {
-  const PessoaCampos({super.key, required this.controller, this.dtNascObrigatoria = false});
+  const PessoaCampos({super.key, required this.controller, this.dtNascObrigatoria = false, this.comCep = true});
 
   final PessoaCamposController controller;
   final bool dtNascObrigatoria;
+  final bool comCep;
 
   @override
   State<PessoaCampos> createState() => _PessoaCamposState();
@@ -68,8 +75,98 @@ class PessoaCampos extends StatefulWidget {
 class _PessoaCamposState extends State<PessoaCampos> {
   PessoaCamposController get c => widget.controller;
 
+  bool _buscando = false;
+
   static const _gap = SizedBox(height: 16);
   static const _gapH = SizedBox(width: 12);
+
+  String? _validaCep(String? v) {
+    final d = soDigitos(v ?? '');
+    if (d.isEmpty) return null; // o CEP é opcional: serve só de atalho para preencher o endereço
+    return d.length == 8 ? null : 'CEP deve ter 8 dígitos';
+  }
+
+  Future<void> _buscarCep() async {
+    FocusScope.of(context).unfocus();
+
+    if (soDigitos(c.cep.text).length != 8) {
+      mostrarErro(context, 'Informe um CEP com 8 dígitos para validar.');
+      return;
+    }
+
+    setState(() => _buscando = true);
+    try {
+      final e = await servicos.cep.consultar(c.cep.text);
+      if (!mounted) return;
+
+      final uf = e.uf.toUpperCase();
+      setState(() {
+        c.uf = ufs.contains(uf) ? uf : null;
+        c.cidade.text = e.cidade;
+        // CEPs "únicos" de cidades pequenas vêm sem logradouro: nesse caso mantém o que já estava.
+        if (e.logradouro.isNotEmpty) c.rua.text = e.logradouro;
+
+        // DDD no telefone, sem sobrescrever um número que o usuário já tenha digitado.
+        final antes = c.telefone.text;
+        final depois = telefoneComDdd(antes, e.ddd);
+        if (depois != antes) {
+          c.telefone.text = depois;
+          c.telefone.selection = TextSelection.collapsed(offset: depois.length);
+        }
+      });
+
+      // O ViaCEP também devolve o bairro, mas o back-end não tem onde gravá-lo: só informamos.
+      final local = [if (e.bairro.isNotEmpty) e.bairro, '${e.cidade}/${e.uf}'].join(' · ');
+      mostrarSucesso(context, 'CEP encontrado: $local. Agora informe o número.');
+      c.numeroFoco.requestFocus();
+    } catch (err) {
+      if (mounted) mostrarErro(context, err);
+    } finally {
+      if (mounted) setState(() => _buscando = false);
+    }
+  }
+
+  Widget _campoCep() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: TextFormField(
+            controller: c.cep,
+            decoration: const InputDecoration(
+              labelText: 'CEP (opcional)',
+              hintText: 'Somente números',
+              helperText: 'Preenche cidade, UF, rua e DDD. Não é gravado.',
+              helperMaxLines: 2,
+            ),
+            keyboardType: TextInputType.number,
+            textInputAction: TextInputAction.search,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              LengthLimitingTextInputFormatter(8),
+            ],
+            validator: _validaCep,
+            onFieldSubmitted: (_) => _buscarCep(),
+          ),
+        ),
+        _gapH,
+        SizedBox(
+          height: 56, // mesma altura do campo
+          child: FilledButton.tonalIcon(
+            onPressed: _buscando ? null : _buscarCep,
+            icon: _buscando
+                ? const SizedBox(
+                    width: 18,
+                    height: 18,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.search),
+            label: const Text('Validar CEP'),
+          ),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +217,7 @@ class _PessoaCamposState extends State<PessoaCampos> {
           validator: validaEmail,
         ),
         _gap,
+        if (widget.comCep) ...[_campoCep(), _gap],
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

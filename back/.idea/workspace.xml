@@ -6,15 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a98dfb22-436d-4b5e-bf34-e9c72ea84f21" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/config/UsuarioInicializador.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/config/UsuarioInicializador.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/service/AuthService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/service/AuthService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/lib/core/validators.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../front/lib/core/validators.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/lib/screens/cliente_form_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../front/lib/screens/cliente_form_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/lib/screens/home_shell.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../front/lib/screens/home_shell.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/lib/services/auth_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../front/lib/services/auth_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/lib/widgets/pessoa_campos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../front/lib/widgets/pessoa_campos.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../front/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../front/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/domain/model/Pessoa.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/kotlin/Projeto/de/teste/Back/demo/domain/model/Pessoa.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,6 +105,7 @@
       <workItem from="1794355792955" duration="1057000" />
       <workItem from="1794434853562" duration="4385000" />
       <workItem from="1794443659257" duration="2720000" />
+      <workItem from="1794867170260" duration="3439000" />
     </task>
     <servers />
   </component>

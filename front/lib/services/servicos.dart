@@ -1,6 +1,7 @@
 import '../core/api_client.dart';
 import '../core/config.dart';
 import 'auth_service.dart';
+import 'cep_service.dart';
 import 'cliente_service.dart';
 import 'financeiro_service.dart';
 import 'funcionario_service.dart';
@@ -19,6 +20,9 @@ class Servicos {
   late final produtos = ProdutoService(_api);
   late final pedidos = PedidoService(_api);
   late final financeiro = FinanceiroService(_api);
+
+  /// ViaCEP (https://viacep.com.br) — host diferente do back-end, por isso tem ApiClient próprio.
+  late final cep = CepService();
 }
 
 final servicos = Servicos();

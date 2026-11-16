@@ -22,9 +22,13 @@ class ApiException implements Exception {
 }
 
 class ApiClient {
-  ApiClient(this.baseUrl, {http.Client? client}) : _client = client ?? http.Client();
+  ApiClient(this.baseUrl, {http.Client? client, this.servidor = 'servidor'})
+      : _client = client ?? http.Client();
 
   final String baseUrl;
+
+  /// Nome usado nas mensagens de erro (ex.: 'servidor', 'serviço ViaCEP').
+  final String servidor;
   final http.Client _client;
 
   static const _timeout = Duration(seconds: 15);
@@ -68,11 +72,11 @@ class ApiClient {
       final streamed = await _client.send(req).timeout(_timeout);
       resp = await http.Response.fromStream(streamed);
     } on TimeoutException {
-      throw ApiException('O servidor demorou demais para responder ($baseUrl).');
+      throw ApiException('O $servidor demorou demais para responder ($baseUrl).');
     } on http.ClientException {
       throw ApiException(
-        'Não foi possível conectar ao servidor ($baseUrl). '
-        'Verifique se o back-end está em execução.',
+        'Não foi possível conectar ao $servidor ($baseUrl). '
+        'Verifique a conexão e se o serviço está em execução.',
       );
     }
 
