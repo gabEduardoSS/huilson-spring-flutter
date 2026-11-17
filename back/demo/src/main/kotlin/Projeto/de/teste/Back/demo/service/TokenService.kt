@@ -45,7 +45,7 @@ class TokenService(
 
     /** Cria um token novo para o usuário já autenticado (senha conferida pelo AuthService). */
     fun gerar(usuario: String): TokenGerado {
-        val expiraEm = Instant.now().plusSeconds(horasDeValidade * 3600).epochSecond
+        val expiraEm = Instant.now().plusSeconds(horasDeValidade).epochSecond
         val payload = base64.encodeToString("$expiraEm|$usuario".toByteArray(Charsets.UTF_8))
         return TokenGerado(token = "$payload.${assinar(payload)}", expiraEm = expiraEm)
     }
