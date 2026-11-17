@@ -10,7 +10,7 @@ class AuthService {
   Future<Usuario> login(String usuario, String senha) async{
       final res = await _api.post('/auth/login', body: {'usuario': usuario, 'senha': senha}) as Map<String, dynamic>;
       final usuarioJson = Usuario.fromJson(res);
-      SessionStorage.saveSession(userId: usuarioJson.id);
+      SessionStorage.saveSession(userId: usuarioJson.id, usuario: usuarioJson.usuario, token: usuarioJson.token, expiraEm: usuarioJson.expiraEm);
 
       return usuarioJson;
       }

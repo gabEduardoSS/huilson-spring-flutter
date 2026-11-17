@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import 'package:front/session/session.dart';
+
 /// Erro já traduzido para o usuário. O back-end responde em RFC 7807 (ProblemDetail):
 /// `{ status, title, detail, erros?: { campo: mensagem } }`.
 class ApiException implements Exception {
@@ -61,6 +63,7 @@ class ApiClient {
   }) async {
     final req = http.Request(metodo, _uri(path, query));
     req.headers['Accept'] = 'application/json';
+    req.headers['Authorization'] = 'Bearer ${SessionStorage.token}';
     if (body != null) {
       // Só envia Content-Type quando há corpo (evita preflight desnecessário no Flutter Web).
       req.headers['Content-Type'] = 'application/json; charset=utf-8';
