@@ -12,7 +12,7 @@ class SessionStorage{
     required int userId,
     required String token,
     required String usuario,
-    required String expiraEm
+    required int expiraEm
 
   }){
     _storage.write(_userIdKey, userId);
