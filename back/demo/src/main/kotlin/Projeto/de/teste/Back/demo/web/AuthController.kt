@@ -1,6 +1,8 @@
 package Projeto.de.teste.Back.demo.web
 
 import Projeto.de.teste.Back.demo.exception.CredenciaisInvalidasException
+import Projeto.de.teste.Back.demo.service.EncerraTokenService
+import org.springframework.web.bind.annotation.RequestHeader
 import Projeto.de.teste.Back.demo.service.AuthService
 import Projeto.de.teste.Back.demo.service.TokenService
 import Projeto.de.teste.Back.demo.web.dto.LoginRequest
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController
 class AuthController(
     private val authService: AuthService,
     private val tokenService: TokenService, // gera o token devolvido no login
+    private val encerramentoToken: EncerraTokenService,
 ) {
     private val log = LoggerFactory.getLogger(javaClass)
 
@@ -73,4 +76,11 @@ class AuthController(
      */
     private fun paraLog(texto: String?): String =
         (texto ?: "").replace(Regex("[\\r\\n\\t]"), "_").take(50)
+
+    /** Logout: cancela o token enviado. Depois disso ele recebe 401. Responde 204 (sem corpo). */
+    @PostMapping("/logout")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun logout(@RequestHeader("Authorization") cabecalho: String) {
+        encerramentoToken.EncerrarToken(cabecalho.removePrefix("Bearer ").trim())
+    }
 }

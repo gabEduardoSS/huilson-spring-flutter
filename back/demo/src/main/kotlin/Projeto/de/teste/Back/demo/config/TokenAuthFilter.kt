@@ -1,6 +1,7 @@
 package Projeto.de.teste.Back.demo.config
 
 import Projeto.de.teste.Back.demo.service.TokenService
+import Projeto.de.teste.Back.demo.service.RevogacaoTokenService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -27,7 +28,10 @@ import org.springframework.web.filter.OncePerRequestFilter
  * IMPORTANTE: esta classe NÃO tem @Component de propósito. Ela é criada dentro do [SecurityConfig].
  * Se fosse @Component, o Spring Boot a registraria uma segunda vez como filtro "solto" do servidor.
  */
-class TokenAuthFilter(private val tokenService: TokenService) : OncePerRequestFilter() {
+class TokenAuthFilter(
+    private val tokenService: TokenService,
+    private val revogacao: RevogacaoTokenService,
+) : OncePerRequestFilter() {
 
     private val log = LoggerFactory.getLogger(javaClass)
 
@@ -39,7 +43,12 @@ class TokenAuthFilter(private val tokenService: TokenService) : OncePerRequestFi
         val cabecalho = request.getHeader("Authorization")
 
         if (cabecalho != null && cabecalho.startsWith("Bearer ")) {
-            val usuario = tokenService.validar(cabecalho.removePrefix("Bearer ").trim())
+            // Tira o "Bearer " e guarda só o token que veio na requisição.
+            val token = cabecalho.removePrefix("Bearer ").trim()
+
+            // 1) validar: assinatura certa e dentro do prazo do token?
+            // 2) sessaoAtiva: não foi cancelado por logout nem ficou inativo? (também renova o relógio de inatividade)
+            val usuario = tokenService.validar(token)?.takeIf { revogacao.sessaoAtiva(token) }
 
             if (usuario != null) {
                 if (SecurityContextHolder.getContext().authentication == null) {
@@ -52,7 +61,7 @@ class TokenAuthFilter(private val tokenService: TokenService) : OncePerRequestFi
                 MDC.put(CHAVE_MDC_USUARIO, usuario)
             } else {
                 // Mandaram um token, mas ele é falso, adulterado ou venceu. NUNCA registre o token em si.
-                log.warn("Token inválido ou expirado em {} {} (origem {})", request.method, request.requestURI, request.remoteAddr)
+                log.warn("Token inválido, expirado, revogado ou inativo em {} {}", request.method, request.requestURI)
             }
         }
 
@@ -64,7 +73,7 @@ class TokenAuthFilter(private val tokenService: TokenService) : OncePerRequestFi
             // OPTIONS é a "pré-requisição" automática do navegador (CORS): ignorada para não poluir o log.
             if (request.method != "OPTIONS") {
                 // Aqui o MDC ainda tem o usuário, então a linha sai como: INFO [ADMIN] GET /api/clientes -> 200
-                log.info("{} {} -> {}", request.method, request.requestURI, response.status)
+                log.info("{} | {} {} -> {}", CHAVE_MDC_USUARIO ?: "anonimo", request.method, request.requestURI, response.status)
             }
             // Limpa a "mochila". As threads do servidor são reaproveitadas: sem isto, o usuário desta
             // requisição apareceria nos logs da PRÓXIMA requisição que cair na mesma thread.
@@ -76,4 +85,6 @@ class TokenAuthFilter(private val tokenService: TokenService) : OncePerRequestFi
         // Mesmo nome usado em logging.pattern.level (%X{usuario:-anonimo}) no application.properties.
         const val CHAVE_MDC_USUARIO = "usuario"
     }
+
+
 }
