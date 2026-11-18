@@ -1,6 +1,6 @@
 package Projeto.de.teste.Back.demo.config
 
-import Projeto.de.teste.Back.demo.service.EncerraTokenService
+import Projeto.de.teste.Back.demo.service.RevogacaoTokenService
 import Projeto.de.teste.Back.demo.service.TokenService
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.context.annotation.Bean
@@ -37,7 +37,7 @@ class SecurityConfig {
     fun securityFilterChain(
         http: HttpSecurity,
         tokenService: TokenService,
-        encerramentoToken: EncerraTokenService
+        revogacao: RevogacaoTokenService,
     ): SecurityFilterChain {
         http
             // CSRF protege sessões com cookie. Aqui não há cookie/sessão (usamos token no header), então desliga.
@@ -71,7 +71,7 @@ class SecurityConfig {
             .exceptionHandling { it.authenticationEntryPoint(naoAutenticado) }
 
             // Nosso filtro roda ANTES do filtro de login padrão e preenche a autenticação a partir do token.
-            .addFilterBefore(TokenAuthFilter(tokenService, encerramentoToken), UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterBefore(TokenAuthFilter(tokenService, revogacao), UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()
     }
