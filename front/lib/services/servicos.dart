@@ -11,6 +11,7 @@ import 'produto_service.dart';
 /// Ponto único de acesso à API (um [ApiClient] compartilhado).
 class Servicos {
   Servicos() : _api = ApiClient(apiBaseUrl);
+  ApiClient get api => _api;
 
   final ApiClient _api;
 

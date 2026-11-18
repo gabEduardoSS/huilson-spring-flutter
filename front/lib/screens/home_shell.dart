@@ -55,6 +55,21 @@ class _HomeShellState extends State<HomeShell> {
     widget.aoSair();
   }
 
+ @override
+  void initState() {
+    super.initState();
+    servicos.api.onUnauthorized = () async {
+      await servicos.auth.logout();
+      if (mounted) widget.aoSair();
+    };
+  }
+
+  @override
+  void dispose() {
+    servicos.api.onUnauthorized = null;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final largo = MediaQuery.sizeOf(context).width >= 720;

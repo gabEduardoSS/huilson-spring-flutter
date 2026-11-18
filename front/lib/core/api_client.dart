@@ -8,7 +8,11 @@ import 'package:front/session/session.dart';
 /// Erro já traduzido para o usuário. O back-end responde em RFC 7807 (ProblemDetail):
 /// `{ status, title, detail, erros?: { campo: mensagem } }`.
 class ApiException implements Exception {
-  ApiException(this.mensagem, {this.status, this.erros = const {}});
+  ApiException(this.mensagem, {this.status, this.erros = const {}}) {
+    if (this.status == 401) {
+      print('teste status ${this.status}');
+    }
+  }
 
   final String mensagem;
   final int? status;
@@ -32,6 +36,8 @@ class ApiClient {
   /// Nome usado nas mensagens de erro (ex.: 'servidor', 'serviço ViaCEP').
   final String servidor;
   final http.Client _client;
+
+  void Function()? onUnauthorized;
 
   static const _timeout = Duration(seconds: 15);
 
@@ -71,6 +77,7 @@ class ApiClient {
     }
 
     final http.Response resp;
+
     try {
       final streamed = await _client.send(req).timeout(_timeout);
       resp = await http.Response.fromStream(streamed);
@@ -88,6 +95,11 @@ class ApiClient {
       if (texto.trim().isEmpty) return null;
       return jsonDecode(texto);
     }
+
+    if(resp.statusCode == 401){
+      onUnauthorized?.call();
+    }
+
     throw _traduzirErro(resp.statusCode, texto);
   }
 
