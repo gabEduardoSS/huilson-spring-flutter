@@ -41,12 +41,14 @@ class AuthService(
         val credencial = usuarioRepository.findByUsuario(usuario)
         // Mesma resposta para "usuário inexistente" e "senha incorreta", para não revelar quais usuários existem.
         if (credencial == null || !passwordEncoder.matches(senha, credencial.senhaHash)) {
+            // (Removido um print("$usuario $senha") que escrevia a SENHA em texto puro no console a cada login errado.)
             throw CredenciaisInvalidasException()
         }
+
         return UsuarioResponse(credencial.id!!, credencial.usuario)
     }
 
-    private fun normalizarUsuario(valor: String): String = valor.trim().uppercase()
+     fun normalizarUsuario(valor: String): String = valor.trim().uppercase()
 
     /** Mesmas regras do `validarDadosCadastro` do projeto aa; devolve a mensagem de erro ou null se estiver tudo certo. */
     internal fun validarDadosCadastro(usuario: String, senha: String): String? = when {

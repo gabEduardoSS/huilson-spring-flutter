@@ -15,6 +15,7 @@ import jakarta.persistence.Transient
 import java.time.LocalDate
 import java.time.LocalDateTime
 
+
 /**
  * Tabela `pessoa` (dados comuns) + `cliente` / `funcionario` (dados específicos),
  * ligadas pela mesma chave `id` — o mesmo desenho que o projeto JDBC já usava.
@@ -26,7 +27,7 @@ import java.time.LocalDateTime
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING, length = 20)
 abstract class Pessoa(
     @Column(nullable = false) var nome: String,
-    @Column(nullable = false, length = 14) var cpf: String,
+    @Column(nullable = false, length = 14, unique = true) var cpf: String,
     @Column(nullable = false) var email: String,
     @Column(nullable = false, length = 20) var telefone: String,
     @Column(nullable = false) var cidade: String,
@@ -42,4 +43,5 @@ abstract class Pessoa(
 
     @get:Transient
     abstract val tipo: TipoPessoa
+
 }

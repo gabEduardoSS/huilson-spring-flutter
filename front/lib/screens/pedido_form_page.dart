@@ -179,7 +179,7 @@ class _PedidoFormPageState extends State<PedidoFormPage> {
         children: [
           Expanded(
             child: DropdownButtonFormField<int>(
-              initialValue: item.produtoId,
+              value: item.produtoId,
               isExpanded: true,
               decoration: const InputDecoration(labelText: 'Produto'),
               items: [
@@ -264,7 +264,7 @@ class _PedidoFormPageState extends State<PedidoFormPage> {
             ),
           ),
         DropdownButtonFormField<int>(
-          initialValue: _pessoaId,
+          value: _pessoaId,
           isExpanded: true,
           decoration: InputDecoration(
             labelText: _venda ? 'Vendedor (cargo Atendimento)' : 'Responsável (cargo Financeiro)',
@@ -278,7 +278,7 @@ class _PedidoFormPageState extends State<PedidoFormPage> {
         ),
         if (_venda)
           DropdownButtonFormField<int>(
-            initialValue: _clienteId,
+            value: _clienteId,
             isExpanded: true,
             decoration: const InputDecoration(labelText: 'Cliente'),
             items: [

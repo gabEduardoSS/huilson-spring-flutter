@@ -3,10 +3,16 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import 'package:front/session/session.dart';
+
 /// Erro já traduzido para o usuário. O back-end responde em RFC 7807 (ProblemDetail):
 /// `{ status, title, detail, erros?: { campo: mensagem } }`.
 class ApiException implements Exception {
-  ApiException(this.mensagem, {this.status, this.erros = const {}});
+  ApiException(this.mensagem, {this.status, this.erros = const {}}) {
+    if (this.status == 401) {
+      print('teste status ${this.status}');
+    }
+  }
 
   final String mensagem;
   final int? status;
@@ -22,10 +28,16 @@ class ApiException implements Exception {
 }
 
 class ApiClient {
-  ApiClient(this.baseUrl, {http.Client? client}) : _client = client ?? http.Client();
+  ApiClient(this.baseUrl, {http.Client? client, this.servidor = 'servidor'})
+      : _client = client ?? http.Client();
 
   final String baseUrl;
+
+  /// Nome usado nas mensagens de erro (ex.: 'servidor', 'serviço ViaCEP').
+  final String servidor;
   final http.Client _client;
+
+  void Function()? onUnauthorized;
 
   static const _timeout = Duration(seconds: 15);
 
@@ -57,6 +69,7 @@ class ApiClient {
   }) async {
     final req = http.Request(metodo, _uri(path, query));
     req.headers['Accept'] = 'application/json';
+    req.headers['Authorization'] = 'Bearer ${SessionStorage.token}';
     if (body != null) {
       // Só envia Content-Type quando há corpo (evita preflight desnecessário no Flutter Web).
       req.headers['Content-Type'] = 'application/json; charset=utf-8';
@@ -64,15 +77,16 @@ class ApiClient {
     }
 
     final http.Response resp;
+
     try {
       final streamed = await _client.send(req).timeout(_timeout);
       resp = await http.Response.fromStream(streamed);
     } on TimeoutException {
-      throw ApiException('O servidor demorou demais para responder ($baseUrl).');
+      throw ApiException('O $servidor demorou demais para responder ($baseUrl).');
     } on http.ClientException {
       throw ApiException(
-        'Não foi possível conectar ao servidor ($baseUrl). '
-        'Verifique se o back-end está em execução.',
+        'Não foi possível conectar ao $servidor ($baseUrl). '
+        'Verifique a conexão e se o serviço está em execução.',
       );
     }
 
@@ -81,6 +95,11 @@ class ApiClient {
       if (texto.trim().isEmpty) return null;
       return jsonDecode(texto);
     }
+
+    if(resp.statusCode == 401){
+      onUnauthorized?.call();
+    }
+
     throw _traduzirErro(resp.statusCode, texto);
   }
 

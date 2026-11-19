@@ -88,4 +88,26 @@ class VendaService(
 
         return vendaRepository.saveAndFlush(venda).toResponse()
     }
+
+    fun listar(): MutableList<VendaResponse>{
+        val vendas = vendaRepository.findAll()
+        val vendasReturn = mutableListOf<VendaResponse>()
+        for(venda in vendas){
+            vendasReturn.add(
+                VendaResponse(
+                    venda.id!!,
+                    venda.transacao.id!!,
+                    venda.vendedor.id!!,
+                    venda.cliente.id!!,
+                    venda.descricao,
+                    venda.valorTotal,
+                    venda.valorDesconto,
+                    venda.status,
+                    venda.data,
+                    itens = null
+                )
+            )
+        }
+        return vendasReturn
+    }
 }

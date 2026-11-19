@@ -1,5 +1,4 @@
 /// Formatadores de exibição (pt-BR) — Dart puro, sem dependência de intl.
-library;
 
 String soDigitos(String s) => s.replaceAll(RegExp(r'\D'), '');
 
@@ -50,4 +49,13 @@ String inicial(String nome) {
   final i = s.lastIndexOf(',');
   if (i < 0) return (s.trim(), '');
   return (s.substring(0, i).trim(), s.substring(i + 1).trim());
+}
+
+/// Preenche o DDD vindo do CEP no campo de telefone SEM sobrescrever o que o usuário digitou:
+/// só aplica se o campo estiver vazio ou contiver apenas um DDD (até 2 dígitos).
+/// Se já houver um número, devolve o texto atual intacto.
+String telefoneComDdd(String atual, String? ddd) {
+  final novo = soDigitos(ddd ?? '');
+  if (novo.length != 2) return atual;
+  return soDigitos(atual).length <= 2 ? novo : atual;
 }

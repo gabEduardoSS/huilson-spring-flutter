@@ -1,6 +1,7 @@
 package Projeto.de.teste.Back.demo.service
 
 import Projeto.de.teste.Back.demo.domain.model.Cliente
+import Projeto.de.teste.Back.demo.exception.ConflitoException
 import Projeto.de.teste.Back.demo.exception.NaoEncontradoException
 import Projeto.de.teste.Back.demo.repository.ClienteRepository
 import Projeto.de.teste.Back.demo.web.dto.ClienteRequest
@@ -30,7 +31,13 @@ class ClienteService(private val clienteRepository: ClienteRepository) {
             endereco = req.endereco!!.trim(),
             dtNasc = req.dtNasc,
         )
-        return clienteRepository.save(cliente).toResponse()
+        try{
+            return clienteRepository.save(cliente).toResponse()
+        } catch(e: Exception){
+            if(e.message!!.contains("cpf")) throw ConflitoException("CPF já cadastrado")
+            throw ConflitoException("Erro de dados não identificado")
+        }
+
     }
 
     @Transactional

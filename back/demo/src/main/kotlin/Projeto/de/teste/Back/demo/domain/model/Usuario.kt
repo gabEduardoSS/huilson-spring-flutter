@@ -16,7 +16,7 @@ class Usuario(
     @Column(name = "senha_hash", nullable = false) var senhaHash: String,
 ) {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     var id: Long? = null
 
     @Column(name = "dt_criacao", nullable = false, updatable = false)

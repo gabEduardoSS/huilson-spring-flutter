@@ -53,7 +53,7 @@ data class VendaResponse(
     val valorDesconto: BigDecimal,
     val status: StatusFinanceiro,
     val data: LocalDateTime,
-    val itens: List<ItemPedidoResponse>,
+    val itens: List<ItemPedidoResponse>?,
 )
 
 data class CompraResponse(

@@ -1,5 +1,4 @@
 /// Helpers de leitura de JSON (Jackson/Spring) — Dart puro, sem Flutter.
-library;
 
 double numD(Object? v) {
   if (v is num) return v.toDouble();

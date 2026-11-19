@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/core/validators.dart';
 
 import '../models/cliente.dart';
 import '../services/servicos.dart';
@@ -29,7 +30,7 @@ class _ClienteFormPageState extends State<ClienteFormPage> {
     final c = widget.cliente;
     _pessoa = PessoaCamposController(
       nome: c?.nome,
-      cpf: c?.cpf,
+      cpf: formatarCpf(c?.cpf),
       email: c?.email,
       telefone: c?.telefone,
       cidade: c?.cidade,

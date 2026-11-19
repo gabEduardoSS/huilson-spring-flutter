@@ -109,16 +109,6 @@ class _LoginPageState extends State<LoginPage> {
                           )
                         : Text(_registro ? 'Criar usuário' : 'Entrar'),
                   ),
-                  TextButton(
-                    onPressed: _enviando ? null : () => setState(() => _registro = !_registro),
-                    child: Text(_registro ? 'Já tenho usuário' : 'Primeiro acesso? Criar usuário'),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Servidor: $apiBaseUrl',
-                    textAlign: TextAlign.center,
-                    style: tema.textTheme.bodySmall,
-                  ),
                 ],
               ),
             ),

@@ -6,6 +6,7 @@ import Projeto.de.teste.Back.demo.web.dto.ClienteResponse
 import Projeto.de.teste.Back.demo.web.dto.ClienteUpdateRequest
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
+
 @RestController
 @RequestMapping("/api/clientes")
+@CrossOrigin(origins = ["*"])
 class ClienteController(private val clienteService: ClienteService) {
 
     @GetMapping
